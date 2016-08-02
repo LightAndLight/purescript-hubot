@@ -1,22 +1,30 @@
 module Hubot where
 
-import Prelude (Unit)
+import Prelude
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE)
+import Data.String.Regex (Regex)
+
 
 foreign import data Robot :: *
 
 foreign import data Response :: *
 
-type Regexp =
-    { pattern :: String
-    , flag    :: String     -- FIXME
-    }
 
-foreign import data Send :: !
+foreign import data HEAR :: !
 
-foreign import respond :: forall e. Robot -> Regexp -> (Response -> Eff (send :: Send, console :: CONSOLE | e) Unit) -> Eff e Unit
+foreign import hear :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (hear :: HEAR | e) Unit
 
-foreign import match :: forall e. Response -> Int -> Eff e String
 
-foreign import send :: forall e. Response -> String -> Eff (send :: Send | e) Unit
+foreign import data RESPOND :: !
+
+foreign import respond :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (respond :: RESPOND | e) Unit
+
+
+foreign import data SEND :: !
+
+foreign import send :: forall e. String -> Response -> Eff (send :: SEND | e) Unit
+
+
+foreign import data REPLY :: !
+
+foreign import reply :: forall e. String -> Response -> Eff (reply :: REPLY | e) Unit

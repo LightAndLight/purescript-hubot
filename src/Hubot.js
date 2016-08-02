@@ -1,32 +1,37 @@
 "use strict";
 
-// module Hubot
-
-exports.respond = function(robot) {
-  return function(regexp) {
+exports.hear = function(regex) {
     return function(callback) {
-      return function() {
-        var test = new RegExp(regexp.pattern, regexp.flag);
-        robot.respond(test, function(res) {
-          callback(res)();
-        });
-      };
+        return function(robot) {
+            return function() {
+                robot.hear(regex,callback)
+            };
+        };
     };
-  };
 };
 
-exports.match = function(res) {
-  return function(index) {
-    return function() {
-      return res.match[index];
+exports.respond = function(regex) {
+    return function(callback) {
+        return function(robot) {
+            return function() {
+                robot.respond(regex,callback)
+            };
+        };
     };
-  };
 };
 
-exports.send = function(res) {
-  return function(msg) {
-    return function() {
-      res.send(msg);
-    };
-  };
+exports.send = function(str) {
+    return function(res) {
+        return function() {
+            res.send(str)
+        }
+    }
+};
+
+exports.reply = function(str) {
+    return function(res) {
+        return function() {
+            res.reply(str)
+        }
+    }
 };
