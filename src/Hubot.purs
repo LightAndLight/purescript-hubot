@@ -12,6 +12,7 @@ module Hubot (
 import Prelude (Unit)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Reader.Trans (ReaderT(..))
+import Data.Maybe (Maybe(..))
 import Data.String.Regex (Regex)
 
 
@@ -21,9 +22,9 @@ foreign import data Response :: *
 
 foreign import data HUBOT :: !
 
-foreign import matchInternal :: (String -> Just String) -> Just String -> Response -> Int -> Maybe String
+foreign import matchInternal :: (String -> Maybe String) -> Maybe String -> Response -> Int -> Maybe String
 
-match :: Reponse -> Int -> Maybe String
+match :: Response -> Int -> Maybe String
 match = matchInternal Just Nothing
 
 foreign import hearInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (hear :: HUBOT | e) Unit
