@@ -4,7 +4,9 @@ exports.hear = function(regex) {
     return function(callback) {
         return function(robot) {
             return function() {
-                robot.hear(regex,callback);
+                robot.hear(regex,function(res) {
+                    callback(res)();
+                });
             };
         };
     };
@@ -14,7 +16,9 @@ exports.respond = function(regex) {
     return function(callback) {
         return function(robot) {
             return function() {
-                robot.respond(regex,callback);
+                robot.respond(regex,function(res) {
+                    callback(res)();
+                });
             };
         };
     };
