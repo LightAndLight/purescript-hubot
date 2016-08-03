@@ -13,7 +13,7 @@ $ bower install krdlab/purescript-hubot
 1. Write a script
 
 ```purescript
--- <purescript_project_path>/src/MyHubotScipt.purs
+-- <purescript_project_path>/src/MyHubotScript.purs
 
 module MyHubotScript (script) where
 
