@@ -17,9 +17,12 @@ $ bower install krdlab/purescript-hubot
 
 module MyHubotScript (script) where
 
+import Prelude (($), Unit)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Class (liftEff)
 import Control.Monad.Eff.Console (CONSOLE, log)
+import Control.Monad.Reader.Trans (runReaderT)
+import Data.Either (Either(..))
 import Data.String.Regex (noFlags, regex)
 
 import Hubot (HUBOT, Robot, hear, send)
