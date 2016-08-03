@@ -4,7 +4,7 @@ exports.hear = function(regex) {
     return function(callback) {
         return function(robot) {
             return function() {
-                robot.hear(regex,callback)
+                robot.hear(regex,callback);
             };
         };
     };
@@ -14,7 +14,7 @@ exports.respond = function(regex) {
     return function(callback) {
         return function(robot) {
             return function() {
-                robot.respond(regex,callback)
+                robot.respond(regex,callback);
             };
         };
     };
@@ -23,15 +23,15 @@ exports.respond = function(regex) {
 exports.send = function(str) {
     return function(res) {
         return function() {
-            res.send(str)
-        }
-    }
+            res.send(str);
+        };
+    };
 };
 
 exports.reply = function(str) {
     return function(res) {
         return function() {
-            res.reply(str)
-        }
-    }
+            res.reply(str);
+        };
+    };
 };
