@@ -12,34 +12,34 @@ $ bower install krdlab/purescript-hubot
 
 1. Write a script
 
-```purescript
--- <purescript_project_path>/src/MyHubotScipt.purs
-
-module MyHubotScript (script) where
-
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Class (liftEff)
-import Control.Monad.Eff.Console (CONSOLE, log)
-import Data.String.Regex (noFlags, regex)
-
-import Hubot (HUBOT, Robot, hear, send)
-
-script :: Robot -> Eff (hear :: HUBOT, send :: HUBOT, console :: CONSOLE) Unit
-script = runReaderT $ case regex "marco" noFlags of
-    Left err -> liftEff $ log err
-    Right pat -> hear pat $ send "polo"
-```
+    ```purescript
+    -- <purescript_project_path>/src/MyHubotScipt.purs
+    
+    module MyHubotScript (script) where
+    
+    import Control.Monad.Eff (Eff)
+    import Control.Monad.Eff.Class (liftEff)
+    import Control.Monad.Eff.Console (CONSOLE, log)
+    import Data.String.Regex (noFlags, regex)
+    
+    import Hubot (HUBOT, Robot, hear, send)
+    
+    script :: Robot -> Eff (hear :: HUBOT, send :: HUBOT, console :: CONSOLE) Unit
+    script = runReaderT $ case regex "marco" noFlags of
+        Left err -> liftEff $ log err
+        Right pat -> hear pat $ send "polo"
+    ```
 
 2. Build your module
 
-```sh
-$ pulp browserify -O --standalone MyHubotScript --skip-entry-point --to <hubot_path>/scripts/lib/my_hubot_script.js
-```
+    ```sh
+    $ pulp browserify -O --standalone MyHubotScript --skip-entry-point --to <hubot_path>/scripts/lib/my_hubot_script.js
+    ```
 
 3. Add a Hubot script that calls the function you exported
-
-```coffeescript
-# <hubot_path>/scripts/my_hubot_script.coffee
-
-module.exports = (robot) -> require('./lib/my_hubot_script.js).script(robot)()
-```
+    
+    ```coffeescript
+    # <hubot_path>/scripts/my_hubot_script.coffee
+    
+    module.exports = (robot) -> require('./lib/my_hubot_script.js').script(robot)()
+    ```
