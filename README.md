@@ -5,7 +5,7 @@ Hubot bindings for PureScript.
 ## Installation
 
 ```sh
-$ bower install krdlab/purescript-hubot
+$ bower install lightandlight/purescript-hubot
 ```
 
 ## Usage
