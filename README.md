@@ -35,14 +35,14 @@ script = runReaderT $ case regex "marco" noFlags of
 
 2. Build your module
 
-```sh
-$ pulp browserify -O --standalone MyHubotScript --skip-entry-point --to <hubot_path>/scripts/lib/my_hubot_script.js
-```
+    ```sh
+    $ pulp browserify -O --standalone MyHubotScript --skip-entry-point --to <hubot_path>/scripts/lib/my_hubot_script.js
+    ```
 
 3. Add a Hubot script that calls the function you exported
-
-```coffeescript
-# <hubot_path>/scripts/my_hubot_script.coffee
-
-module.exports = (robot) -> require('./lib/my_hubot_script.js).script(robot)()
-```
+    
+    ```coffeescript
+    # <hubot_path>/scripts/my_hubot_script.coffee
+    
+    module.exports = (robot) -> require('./lib/my_hubot_script.js').script(robot)()
+    ```
