@@ -15,7 +15,7 @@ $ bower install krdlab/purescript-hubot
 ```purescript
 -- <purescript_project_path>/src/MyHubotScript.purs
 
-module MyHubotScript (script) where
+module Main (script) where
 
 import Prelude (($), Unit)
 import Control.Monad.Eff (Eff)
