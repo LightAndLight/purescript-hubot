@@ -1,6 +1,6 @@
 "use strict";
 
-exports.hear = function(regex) {
+exports.hearInternal = function(regex) {
     return function(callback) {
         return function(robot) {
             return function() {
@@ -12,7 +12,7 @@ exports.hear = function(regex) {
     };
 };
 
-exports.respond = function(regex) {
+exports.respondInternal = function(regex) {
     return function(callback) {
         return function(robot) {
             return function() {

@@ -1,9 +1,16 @@
-module Hubot where
+module Hubot (
+    HUBOT
+    , Response
+    , Robot
+    , hear
+    , reply
+    , respond
+    , send
+) where
 
 import Prelude (Unit)
 import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Class (class MonadEff)
-import Control.Monad.Reader.Class (class MonadReader)
+import Control.Monad.Reader.Trans (ReaderT(..))
 import Data.String.Regex (Regex)
 
 
@@ -13,9 +20,18 @@ foreign import data Response :: *
 
 foreign import data HUBOT :: !
 
-foreign import hear :: forall e m. (MonadReader Robot m, MonadEff (hear :: HUBOT | e) m) => Regex -> (Response -> Eff e Unit) -> m Unit
 
-foreign import respond :: forall e m. (MonadReader Robot m, MonadEff (respond :: HUBOT | e) m) => Regex -> (Response -> Eff e Unit) -> m Unit
+foreign import hearInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (hear :: HUBOT | e) Unit
+
+hear :: forall e. Regex -> (Response -> Eff e Unit) -> ReaderT Robot (Eff (hear :: HUBOT | e)) Unit
+hear reg cb = ReaderT (hearInternal reg cb)
+
+
+foreign import respondInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (respond :: HUBOT | e) Unit
+
+respond :: forall e. Regex -> (Response -> Eff e Unit) -> ReaderT Robot (Eff (respond :: HUBOT | e)) Unit
+respond reg cb = ReaderT (respondInternal reg cb)
+
 
 foreign import send :: forall e. String -> Response -> Eff (send :: HUBOT | e) Unit
 
