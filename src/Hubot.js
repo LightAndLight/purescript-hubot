@@ -1,5 +1,20 @@
 "use strict";
 
+exports.matchInternal = function(just) {
+    return function(nothing) {
+        return function(response) {
+            return function(i) {
+                var res = response.match[i];
+                if (res === undefined) {
+                    return nothing;
+                } else {
+                    return just(res);
+                }
+            };
+        };
+    };
+};
+
 exports.hearInternal = function(regex) {
     return function(callback) {
         return function(robot) {

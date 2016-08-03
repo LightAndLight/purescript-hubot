@@ -3,6 +3,7 @@ module Hubot (
     , Response
     , Robot
     , hear
+    , match
     , reply
     , respond
     , send
@@ -20,6 +21,10 @@ foreign import data Response :: *
 
 foreign import data HUBOT :: !
 
+foreign import matchInternal :: (String -> Just String) -> Just String -> Response -> Int -> Maybe String
+
+match :: Reponse -> Int -> Maybe String
+match = matchInternal Just Nothing
 
 foreign import hearInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (hear :: HUBOT | e) Unit
 
