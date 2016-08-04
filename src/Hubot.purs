@@ -27,15 +27,15 @@ foreign import matchInternal :: (String -> Maybe String) -> Maybe String -> Resp
 match :: Response -> Int -> Maybe String
 match = matchInternal Just Nothing
 
-foreign import hearInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (hear :: HUBOT | e) Unit
+foreign import hearInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (hubot :: HUBOT | e) Unit
 
-hear :: forall e. Regex -> (Response -> Eff e Unit) -> ReaderT Robot (Eff (hear :: HUBOT | e)) Unit
+hear :: forall e. Regex -> (Response -> Eff e Unit) -> ReaderT Robot (Eff (hubot :: HUBOT | e)) Unit
 hear reg cb = ReaderT (hearInternal reg cb)
 
 
-foreign import respondInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (respond :: HUBOT | e) Unit
+foreign import respondInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff (hubot :: HUBOT | e) Unit
 
-respond :: forall e. Regex -> (Response -> Eff e Unit) -> ReaderT Robot (Eff (respond :: HUBOT | e)) Unit
+respond :: forall e. Regex -> (Response -> Eff e Unit) -> ReaderT Robot (Eff (hubot :: HUBOT | e)) Unit
 respond reg cb = ReaderT (respondInternal reg cb)
 
 
