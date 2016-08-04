@@ -12,7 +12,6 @@ module Hubot (
 import Prelude (($), (<<<), Unit)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Aff (Aff, makeAff)
-import Control.Monad.Reader.Trans (ReaderT(..))
 import Data.Maybe (Maybe(..))
 import Data.String.Regex (Regex)
 
@@ -32,14 +31,14 @@ match = matchInternal Just Nothing
 
 foreign import hearInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff e Unit
 
-hear :: forall e. Regex -> ReaderT Robot (Aff (hubot :: HUBOT | e)) Response
-hear reg = ReaderT $ \robot -> makeAff (\err cb -> hearInternal reg cb robot)
+hear :: forall e. Regex -> Robot -> Aff (hubot :: HUBOT | e) Response
+hear reg robot = makeAff $ \err cb -> hearInternal reg cb robot
 
 
 foreign import respondInternal :: forall e. Regex -> (Response -> Eff e Unit) -> Robot -> Eff e Unit
 
-respond :: forall e. Regex -> ReaderT Robot (Aff (hubot :: HUBOT | e)) Response
-respond reg = ReaderT $ \robot -> makeAff (\err cb -> respondInternal reg cb robot)
+respond :: forall e. Regex -> Robot -> Aff (hubot :: HUBOT | e) Response
+respond reg reobot = makeAff $ \err cb -> respondInternal reg cb robot
 
 
 foreign import send :: forall e. String -> Response -> Eff (send :: HUBOT | e) Unit
