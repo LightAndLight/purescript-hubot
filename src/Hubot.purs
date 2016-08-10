@@ -3,6 +3,7 @@ module Hubot (
     , Response
     , Robot
     , hear
+    , http
     , match
     , reply
     , respond
