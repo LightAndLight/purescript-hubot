@@ -14,6 +14,7 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Aff (Aff, makeAff)
 import Data.Maybe (Maybe(..))
 import Data.String.Regex (Regex)
+import Node.HTTP.ScopedClient (ScopedClient)
 
 
 foreign import data Robot :: *
@@ -21,6 +22,9 @@ foreign import data Robot :: *
 foreign import data Response :: *
 
 foreign import data HUBOT :: !
+
+
+foreign import http :: forall e. String -> Robot -> Eff e ScopedClient
 
 
 foreign import matchInternal :: (String -> Maybe String) -> Maybe String -> Response -> Int -> Maybe String

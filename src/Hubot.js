@@ -1,5 +1,13 @@
 "use strict";
 
+exports.http = function(url) {
+    return function(robot) {
+        return function() {
+            robot.http(url);
+        }
+    };
+};
+
 exports.matchInternal = function(just) {
     return function(nothing) {
         return function(response) {
