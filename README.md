@@ -35,8 +35,13 @@ $ bower install lightandlight/purescript-hubot
 
 2. Build your module
 
+    *It's necessary to use browserify directly as pulp browserify doesn't have a `--node` flag yet*
+
     ```sh
-    $ pulp browserify -O --standalone MyHubotScript --skip-entry-point --to <hubot_path>/scripts/lib/my_hubot_script.js
+    $ pulp build &&
+      cd output/Main/ &&
+      browserify -o <hoobot_path>/scripts/lib/hoobot.js -s Hoobot --node --no-bundle-external index.js &&
+      cd ../../
     ```
 
 3. Add a Hubot script that calls the function you exported
