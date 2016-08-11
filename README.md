@@ -40,7 +40,7 @@ $ bower install lightandlight/purescript-hubot
     ```sh
     $ pulp build &&
       cd output/Main/ &&
-      browserify -o <hoobot_path>/scripts/lib/hoobot.js -s Hoobot --node --no-bundle-external index.js &&
+      browserify -o <hoobot_path>/scripts/lib/my_hubot_script.js -s MyHubotScript --node --no-bundle-external index.js &&
       cd ../../
     ```
 
