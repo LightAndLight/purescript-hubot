@@ -3,7 +3,7 @@
 exports.http = function(url) {
     return function(robot) {
         return function() {
-            robot.http(url);
+            return robot.http(url);
         }
     };
 };
