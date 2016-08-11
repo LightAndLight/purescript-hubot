@@ -27,7 +27,7 @@ $ bower install lightandlight/purescript-hubot
     
     import Hubot (HUBOT, Robot, hear, send)
     
-    script' :: Robot -> Regex -> Aff (hubot :: HUBOT) Unit
+    script' :: Robot -> Regex -> Aff (hubot :: HUBOT | e) Unit
     script' robot pat = do
         response <- hear pat robot
         liftEff $ send "polo" response
