@@ -22,6 +22,7 @@ $ bower install lightandlight/purescript-hubot
     import Control.Monad.Eff (Eff)
     import Control.Monad.Eff.Class (liftEff)
     import Control.Monad.Eff.Console (CONSOLE, log)
+    import Control.Monad.Eff.Exception (EXCEPTION)
     import Data.Either (Either(..))
     import Data.String.Regex (Regex, noFlags, regex)
     
@@ -32,7 +33,7 @@ $ bower install lightandlight/purescript-hubot
         response <- hear pat robot
         liftEff $ send "polo" response
     
-    script :: Robot -> Eff (hubot :: HUBOT, console :: CONSOLE) Unit
+    script :: Robot -> Eff (err :: EXCEPTION, hubot :: HUBOT, console :: CONSOLE) Unit
     script robot = case regex "marco" noFlags of
         Left err -> liftEff $ log err
         Right pat -> do
