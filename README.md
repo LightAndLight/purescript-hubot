@@ -18,19 +18,26 @@ $ bower install lightandlight/purescript-hubot
     module Main (script) where
     
     import Prelude (($), Unit)
+    import Control.Monad.Aff (Aff, launchAff)
     import Control.Monad.Eff (Eff)
     import Control.Monad.Eff.Class (liftEff)
     import Control.Monad.Eff.Console (CONSOLE, log)
-    import Control.Monad.Reader.Trans (runReaderT)
     import Data.Either (Either(..))
-    import Data.String.Regex (noFlags, regex)
+    import Data.String.Regex (Regex, noFlags, regex)
     
     import Hubot (HUBOT, Robot, hear, send)
     
-    script :: Robot -> Eff (hear :: HUBOT, send :: HUBOT, console :: CONSOLE) Unit
-    script = runReaderT $ case regex "marco" noFlags of
+    script' :: Robot -> Regex -> Aff (hubot :: HUBOT) Unit
+    script' robot pat = do
+        response <- hear pat robot
+        liftEff $ send "polo" response
+    
+    script :: Robot -> Eff (hubot :: HUBOT, console :: CONSOLE) Unit
+    script robot = case regex "marco" noFlags of
         Left err -> liftEff $ log err
-        Right pat -> hear pat $ send "polo"
+        Right pat -> do
+            launchAff $ script' robot pat
+            pure unit
     ```
 
 2. Build your module
